@@ -1,4 +1,4 @@
-* {
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -12,6 +12,37 @@ body {
     background-color: #f0f0f0;
 }
 
-canvas {
-    border: 10px solid #333;
+#board {
+    width: 320px;
+    height: 320px;
+    display: grid;
+    grid-template-columns: repeat(8, 40px);
+    grid-template-rows: repeat(8, 40px);
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+}
+
+.light-cell {
+    background-color: #ffce9e;
+}
+
+.dark-cell {
+    background-color: #d18b47;
+}
+
+.piece {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: white;
+    position: relative;
+    top: 2px;
+    left: 2px;
+}
+
+.black-piece {
+    background-color: black;
 }
