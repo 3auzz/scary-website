@@ -8,10 +8,33 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
     background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
 }
 
-canvas {
-    border: 10px solid #333;
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#game {
+    width: 200px;
+    height: 400px;
+    border: 2px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+.block {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    background-color: blue;
+}
+
+#start {
+    margin-top: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
