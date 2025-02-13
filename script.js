@@ -1,38 +1,44 @@
-const canvas = document.getElementById('tetris');
-const context = canvas.getContext('2d');
-const rows = 20;
-const cols = 10;
-const squareSize = 20;
-let board = [];
-
-function createBoard() {
-    for (let r = 0; r < rows; r++) {
-        board[r] = [];
-        for (let c = 0; c < cols; c++) {
-            board[r][c] = 0;
-        }
+document.addEventListener("DOMContentLoaded", function() {
+    const gameContainer = document.getElementById("game");
+    let blocks = [];
+    let currentBlock;
+    let interval;
+    
+    function createBlock() {
+        const block = document.createElement("div");
+        block.className = "block";
+        block.style.left = `${Math.floor(Math.random() * 5) * 40}px`;
+        block.style.top = "-40px";
+        gameContainer.appendChild(block);
+        blocks.push(block);
+        currentBlock = block;
     }
-}
 
-function drawSquare(x, y, color) {
-    context.fillStyle = color;
-    context.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
-    context.strokeStyle = 'black';
-    context.strokeRect(x * squareSize, y * squareSize, squareSize, squareSize);
-}
-
-function drawBoard() {
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-            if (board[r][c]) {
-                drawSquare(c, r, 'blue');
-            } else {
-                drawSquare(c, r, 'white');
+    function moveBlocks() {
+        for (let i = 0; i < blocks.length; i++) {
+            let top = parseInt(blocks[i].style.top) + 40;
+            blocks[i].style.top = `${top}px`;
+            
+            if (blocks[i].getBoundingClientRect().bottom >= gameContainer.getBoundingClientRect().bottom) {
+                clearInterval(interval);
+                alert("Game Over!");
             }
         }
     }
-}
 
-// Инициализация игры
-createBoard();
-drawBoard();
+    document.getElementById("start").addEventListener("click", function() {
+        if (interval) {
+            clearInterval(interval);
+            while (gameContainer.firstChild) {
+                gameContainer.removeChild(gameContainer.firstChild);
+            }
+            blocks = [];
+            currentBlock = null;
+        } else {
+            interval = setInterval(function() {
+                createBlock();
+                moveBlocks();
+            }, 1000);
+        }
+    });
+});
